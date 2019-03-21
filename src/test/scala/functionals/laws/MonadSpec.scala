@@ -2,7 +2,7 @@ package functionals.laws
 
 import functionals.MyId
 import functionals.structures._
-import functionals.transformers.MyOptionT
+import functionals.transformers.{MyEitherT, MyOptionT}
 import functionals.typeclasses.{Equal, Monad}
 import org.scalacheck.Arbitrary
 
@@ -58,6 +58,7 @@ class MyListMonadSpec    extends MonadSpec[MyList, Int, String, Long]("MyList")
 class MyEitherMonadSpec  extends MonadSpec[({ type l[X] = MyEither[Int, X] })#l, Int, String, Long]("MyEither")
 class MyTreeMonadSpec    extends MonadSpec[MyTree, Int, String, Long]("MyTree")
 class MyOptionTMonadSpec extends MonadSpec[({ type l[X] = MyOptionT[MyList, X] })#l, Int, String, Long]("MyOptionT")
+class MyEitherTMonadSpec extends MonadSpec[({ type l[X] = MyEitherT[MyList, String, X] })#l, Int, String, Long]("MyEitherT")
 
 class MyIdPureMonadSpec
     extends MonadSpec[MyId, Int, String, Long]("MyIdPure")(

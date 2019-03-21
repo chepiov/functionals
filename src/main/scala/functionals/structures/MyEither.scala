@@ -30,6 +30,20 @@ sealed trait MyEither[+E, +A] { self =>
 
   def swap: MyEither[A, E] =
     fold[MyEither[A, E]](right)(left)
+
+  def +++[EE >: E, AA >: A](that: MyEither[EE, AA])(implicit M1: Semigroup[AA], M2: Semigroup[EE]): MyEither[EE, AA] =
+    self match {
+      case MyRight(a1) =>
+        that match {
+          case e @ MyLeft(_) => e
+          case MyRight(a2)   => MyRight(M1.combine(a1, a2))
+        }
+      case MyLeft(e1) =>
+        that match {
+          case MyRight(_) => self
+          case MyLeft(e2) => MyLeft(M2.combine(e1, e2))
+        }
+    }
 }
 
 final case class MyLeft[+E](e: E)  extends MyEither[E, Nothing]

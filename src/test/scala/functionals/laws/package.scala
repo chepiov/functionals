@@ -1,7 +1,7 @@
 package functionals
 
 import functionals.structures._
-import functionals.transformers.MyOptionT
+import functionals.transformers.{MyEitherT, MyOptionT}
 import org.scalacheck.{Arbitrary, Gen}
 
 package object laws {
@@ -61,5 +61,12 @@ package object laws {
       for {
         xs <- arb.arbitrary
       } yield MyOptionT(xs)
+    }
+
+  implicit def arbMyEitherT[A, B](implicit arb: Arbitrary[MyList[MyEither[A, B]]]): Arbitrary[MyEitherT[MyList, A, B]] =
+    Arbitrary {
+      for {
+        xs <- arb.arbitrary
+      } yield MyEitherT(xs)
     }
 }
