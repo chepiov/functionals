@@ -46,7 +46,7 @@ case object MyValidated {
   def invalid[E, A](e: E): MyValidated[E, A] = MyInvalid(e)
 
   implicit def myValidatedStdInstances[E: Semigroup]
-    : Traverse[({ type l[X] = MyValidated[E, X] })#l] with Applicative[({ type l[X] = MyValidated[E, X] })#l] =
+      : Traverse[({ type l[X] = MyValidated[E, X] })#l] with Applicative[({ type l[X] = MyValidated[E, X] })#l] =
     new Traverse[({ type l[X] = MyValidated[E, X] })#l] with Applicative[({ type l[X] = MyValidated[E, X] })#l] {
       def pure[A](a: A): MyValidated[E, A] = valid(a)
       def ap[A, B](fa: MyValidated[E, A])(ff: MyValidated[E, A => B]): MyValidated[E, B] =

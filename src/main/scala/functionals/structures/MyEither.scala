@@ -44,7 +44,7 @@ case object MyEither {
   def right[E, A](a: A): MyEither[E, A] = MyRight(a)
 
   implicit def myEitherStdInstance[E]
-    : Traverse[({ type l[X] = MyEither[E, X] })#l] with Monad[({ type l[X] = MyEither[E, X] })#l] =
+      : Traverse[({ type l[X] = MyEither[E, X] })#l] with Monad[({ type l[X] = MyEither[E, X] })#l] =
     new Traverse[({ type l[X] = MyEither[E, X] })#l] with Monad[({ type l[X] = MyEither[E, X] })#l] {
       def traverse[G[_]: Applicative, A, B](fa: MyEither[E, A])(f: A => G[B]): G[MyEither[E, B]] =
         fa match {

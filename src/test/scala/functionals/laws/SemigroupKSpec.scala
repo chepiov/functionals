@@ -39,18 +39,21 @@ class MyListPureSemigroupKSpec
       implicitly,
       implicitly
     )
+
 class MyOptionPureSemigroupKSpec
     extends SemigroupKSpec[MyOption, Int]("MyOptionPure")(
       MyOption.PureInstances.myOptionSemigroupK,
       implicitly,
       implicitly
     )
+
 class MyEitherPureSemigroupKSpec
     extends SemigroupKSpec[({ type l[X] = MyEither[Int, X] })#l, Int]("MyEitherPure")(
       MyEither.PureInstances.semigroupK,
       implicitly,
       implicitly
     )
+
 class MyValidatedPureSemigroupKSpec
     extends SemigroupKSpec[({ type l[X] = MyValidated[Int, X] })#l, Int]("MyValidatedPure")(
       MyValidated.PureInstances.myValidatedSemigroupK,

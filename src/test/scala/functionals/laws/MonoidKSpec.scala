@@ -41,6 +41,7 @@ class MyListPureMonoidKSpec
       implicitly,
       implicitly
     )
+
 class MyOptionPureMonoidKSpec
     extends MonoidKSpec[MyOption, Int]("MyOptionPure")(
       MyOption.PureInstances.myOptionMonoidK,

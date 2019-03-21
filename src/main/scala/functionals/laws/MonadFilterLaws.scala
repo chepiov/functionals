@@ -5,17 +5,17 @@ import functionals.typeclasses.MonadFilter
 import scala.language.higherKinds
 
 trait MonadFilterLaws[F[_]] extends MonadLaws[F] {
-
-  implicit val typeClass: MonadFilter[F]
-
+  import IsEqual.ops._
   import MonadFilter.ops._
   import typeClass.empty
 
-  def filterLeftDistributivity[A, B](f: A => F[B]): Boolean =
-    empty[A].flatMap(f) == empty[B]
+  implicit val typeClass: MonadFilter[F]
 
-  def filterRightDistributivity[A](fa: F[A]): Boolean =
-    fa.flatMap(_ => empty[A]) == empty[A]
+  def filterLeftDistributivity[A, B](f: A => F[B]): IsEqual[F[B]] =
+    empty[A].flatMap(f) =?= empty[B]
+
+  def filterRightDistributivity[A](fa: F[A]): IsEqual[F[A]] =
+    fa.flatMap(_ => empty[A]) =?= empty[A]
 }
 
 object MonadFilterLaws {
