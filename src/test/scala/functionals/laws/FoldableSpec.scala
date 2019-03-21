@@ -5,7 +5,7 @@ import functionals.structures.{MyEither, MyList, MyOption, MyValidated}
 import functionals.typeclasses.{Equal, Foldable, Monoid}
 import org.scalacheck.Arbitrary
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait FoldableLawsSpec[F[_], A, B] { _: LawsSpec =>
 

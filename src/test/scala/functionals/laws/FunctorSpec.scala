@@ -5,7 +5,7 @@ import functionals.structures._
 import functionals.typeclasses.{Equal, Functor}
 import org.scalacheck.Arbitrary
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait FunctorLawsSpec[F[_], A, B, C] { _: LawsSpec =>
 

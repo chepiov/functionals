@@ -25,6 +25,7 @@ package object functionals {
   implicit val shortEqual: Equal[Short]     = Equal.natural
   implicit val stringEqual: Equal[String]   = Equal.natural
   implicit val booleanEqual: Equal[Boolean] = Equal.natural
+  implicit val bigIntEqual: Equal[BigInt]   = Equal.natural
 
   // just for learning
   object PureInstances {

@@ -3,10 +3,6 @@ package functionals
 import functionals.structures._
 import functionals.transformers.MyOptionT
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.prop.PropertyChecks
-import org.scalatest.{Matchers, PropSpec}
-
-import scala.language.higherKinds
 
 package object laws {
 
@@ -66,6 +62,4 @@ package object laws {
         xs <- arb.arbitrary
       } yield MyOptionT(xs)
     }
-
-  abstract class LawsSpec extends PropSpec with Matchers with PropertyChecks
 }

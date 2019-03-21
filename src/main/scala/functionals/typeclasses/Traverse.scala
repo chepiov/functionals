@@ -1,6 +1,6 @@
 package functionals.typeclasses
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait Traverse[F[_]] extends Any with Foldable[F] with Functor[F] { self =>
   import Traverse._

@@ -20,7 +20,10 @@ sealed trait MyOption[+A] { self =>
 
   def orElse[AA >: A](that: MyOption[AA]): MyOption[AA] = fold(that)(_ => self)
 
-  def getOrElse[AA >: A](alt: AA): AA = fold(alt)(identity)
+  def getOrElse[AA >: A](default: AA): AA = fold(default)(identity)
+
+  def isEmpty: Boolean   = fold(true)(_ => false)
+  def isDefined: Boolean = fold(false)(_ => true)
 }
 
 case object MyNone                    extends MyOption[Nothing]

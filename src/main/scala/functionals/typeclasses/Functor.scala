@@ -1,6 +1,6 @@
 package functionals.typeclasses
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait Functor[F[_]] extends Any { self =>
   import Functor._

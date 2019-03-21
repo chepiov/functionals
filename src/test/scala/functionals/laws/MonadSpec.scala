@@ -6,7 +6,7 @@ import functionals.transformers.MyOptionT
 import functionals.typeclasses.{Equal, Monad}
 import org.scalacheck.Arbitrary
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait MonadLawsSpec[F[_], A, B, C] extends ApplicativeLawsSpec[F, A, B, C] { _: LawsSpec =>
 

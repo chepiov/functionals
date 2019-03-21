@@ -2,7 +2,7 @@ package functionals.structures
 
 import functionals.typeclasses._
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 sealed trait MyValidated[+E, +A] { self =>
   import MyValidated._

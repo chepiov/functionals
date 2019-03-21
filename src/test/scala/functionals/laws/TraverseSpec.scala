@@ -5,7 +5,7 @@ import functionals.structures._
 import functionals.typeclasses.{Equal, Monoid, Traverse}
 import org.scalacheck.Arbitrary
 
-import scala.language.{higherKinds, reflectiveCalls}
+import scala.language.higherKinds
 
 trait TraverseLawsSpec[F[_], A, B, C] extends FunctorLawsSpec[F, A, B, C] with FoldableLawsSpec[F, A, B] {
   _: LawsSpec =>
