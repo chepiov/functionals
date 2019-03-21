@@ -5,16 +5,16 @@ import functionals.typeclasses.MonoidK
 import scala.language.higherKinds
 
 trait MonoidKLaws[F[_]] extends SemigroupKLaws[F] {
+  import IsEqual.ops._
+  import MonoidK.ops._
 
   override implicit val typeClass: MonoidK[F]
 
-  import MonoidK.ops._
+  def combineRightIdentity[A](fa: F[A]): IsEqual[F[A]] =
+    (fa <+> typeClass.empty) =?= fa
 
-  def combineRightIdentity[A](fa: F[A]): Boolean =
-    (fa <+> typeClass.empty) == fa
-
-  def combineLeftIdentity[A](fa: F[A]): Boolean =
-    (typeClass.empty[A] <+> fa) == fa
+  def combineLeftIdentity[A](fa: F[A]): IsEqual[F[A]] =
+    (typeClass.empty[A] <+> fa) =?= fa
 }
 
 object MonoidKLaws {
