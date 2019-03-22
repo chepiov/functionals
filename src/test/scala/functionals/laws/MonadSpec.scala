@@ -10,7 +10,7 @@ import scala.language.higherKinds
 
 trait MonadLawsSpec[F[_], A, B, C] extends ApplicativeLawsSpec[F, A, B, C] { _: LawsSpec =>
 
-  override implicit def F: Monad[F]
+  implicit override def F: Monad[F]
 
   implicit def arbAFB: Arbitrary[A => F[B]]
   implicit def arbBFC: Arbitrary[B => F[C]]
@@ -58,7 +58,8 @@ class MyListMonadSpec    extends MonadSpec[MyList, Int, String, Long]("MyList")
 class MyEitherMonadSpec  extends MonadSpec[({ type l[X] = MyEither[Int, X] })#l, Int, String, Long]("MyEither")
 class MyTreeMonadSpec    extends MonadSpec[MyTree, Int, String, Long]("MyTree")
 class MyOptionTMonadSpec extends MonadSpec[({ type l[X] = MyOptionT[MyList, X] })#l, Int, String, Long]("MyOptionT")
-class MyEitherTMonadSpec extends MonadSpec[({ type l[X] = MyEitherT[MyList, String, X] })#l, Int, String, Long]("MyEitherT")
+class MyEitherTMonadSpec
+    extends MonadSpec[({ type l[X] = MyEitherT[MyList, String, X] })#l, Int, String, Long]("MyEitherT")
 
 class MyIdPureMonadSpec
     extends MonadSpec[MyId, Int, String, Long]("MyIdPure")(

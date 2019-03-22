@@ -6,7 +6,7 @@ import org.scalacheck.Arbitrary
 
 trait MonoidLawsSpec[A] extends SemigroupLawsSpec[A] { _: LawsSpec =>
 
-  override implicit def F: Monoid[A]
+  implicit override def F: Monoid[A]
 
   override lazy val laws: MonoidLaws[A] = MonoidLaws[A]
 

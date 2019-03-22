@@ -8,7 +8,7 @@ trait MonoidKLaws[F[_]] extends SemigroupKLaws[F] {
   import IsEqual.ops._
   import MonoidK.ops._
 
-  override implicit val typeClass: MonoidK[F]
+  implicit override val typeClass: MonoidK[F]
 
   def combineRightIdentity[A](fa: F[A]): IsEqual[F[A]] =
     (fa <+> typeClass.empty) =?= fa

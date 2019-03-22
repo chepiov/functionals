@@ -9,7 +9,7 @@ import scala.language.higherKinds
 
 trait ApplicativeLawsSpec[F[_], A, B, C] extends FunctorLawsSpec[F, A, B, C] { _: LawsSpec =>
 
-  override implicit def F: Applicative[F]
+  implicit override def F: Applicative[F]
 
   implicit def arbA: Arbitrary[A]
   implicit def arbFAB: Arbitrary[F[A => B]]

@@ -1,7 +1,7 @@
 package functionals
 
 import functionals.structures._
-import functionals.transformers.{MyEitherT, MyOptionT}
+import functionals.transformers.{MyEitherT, MyOptionT, MyReaderT}
 import org.scalacheck.{Arbitrary, Gen}
 
 package object laws {
@@ -68,5 +68,19 @@ package object laws {
       for {
         xs <- arb.arbitrary
       } yield MyEitherT(xs)
+    }
+
+  implicit def arbMyReader[A, B](implicit arb: Arbitrary[A => B]): Arbitrary[MyReader[A, B]] =
+    Arbitrary {
+      for {
+        f <- arb.arbitrary
+      } yield MyReader(f)
+    }
+
+  implicit def arbMyReaderT[A, B](implicit arb: Arbitrary[A => MyList[B]]): Arbitrary[MyReaderT[MyList, A, B]] =
+    Arbitrary {
+      for {
+        f <- arb.arbitrary
+      } yield MyReaderT(f)
     }
 }

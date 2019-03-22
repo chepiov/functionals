@@ -9,7 +9,7 @@ import scala.language.higherKinds
 //noinspection ScalaUnnecessaryParentheses
 trait MonadFilterLawsSpec[F[_], A, B, C] extends MonadLawsSpec[F, A, B, C] { _: LawsSpec =>
 
-  override implicit def F: MonadFilter[F]
+  implicit override def F: MonadFilter[F]
 
   override lazy val laws: MonadFilterLaws[F] = MonadFilterLaws[F]
 
