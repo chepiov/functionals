@@ -1,4 +1,5 @@
 package functionals.laws
+
 import functionals.typeclasses.Equal
 
 trait EqualLaws[A] {

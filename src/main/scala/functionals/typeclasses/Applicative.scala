@@ -2,11 +2,9 @@ package functionals.typeclasses
 
 import scala.language.higherKinds
 
-trait Applicative[F[_]] extends Any with Functor[F] { self =>
+trait Applicative[F[_]] extends Any with Apply[F] { self =>
 
   def pure[A](a: A): F[A]
-
-  def ap[A, B](fa: F[A])(ff: F[A => B]): F[B]
 
   def ap2[A, B, Z](fa: F[A], fb: F[B])(ff: F[(A, B) => Z]): F[Z] =
     ap(fa)(ap(fb)(map(ff)(f => b => a => f(a, b))))
