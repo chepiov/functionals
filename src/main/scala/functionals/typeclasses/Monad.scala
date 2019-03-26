@@ -23,12 +23,32 @@ object Monad {
 
   def apply[F[_]](implicit F: Monad[F]): Monad[F] = F
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) extends Applicative.ops.Syntax(fa) {
-      def flatMap[B](f: A => F[B])(implicit M: Monad[F]): F[B] = M.flatMap(fa)(f)
-    }
-    implicit class FlattenSyntax[F[_], A](ffa: F[F[A]]) {
-      def flatten(implicit M: Monad[F]): F[A] = M.flatten(ffa)
-    }
+  trait Ops[F[_], A] extends Applicative.Ops[F, A] {
+    def typeClassInstance: Monad[F]
+    def self: F[A]
+
+    def flatMap[B](f: A => F[B]): F[B] = typeClassInstance.flatMap(self)(f)
   }
+
+  trait ComposedOps[F[_], A] {
+    def typeClassInstance: Monad[F]
+    def composedSelf: F[F[A]]
+
+    def flatten: F[A] = typeClassInstance.flatten(composedSelf)
+  }
+
+  trait ToMonadOps {
+    implicit def toMonadOps[F[_], A](target: F[A])(implicit tc: Monad[F]): Ops[F, A] =
+      new Ops[F, A] {
+        def typeClassInstance: Monad[F] = tc
+        def self: F[A]                  = target
+      }
+    implicit def toComposedMonadOps[F[_], A](target: F[F[A]])(implicit tc: Monad[F]): ComposedOps[F, A] =
+      new ComposedOps[F, A] {
+        def typeClassInstance: Monad[F] = tc
+        def composedSelf: F[F[A]]       = target
+      }
+  }
+
+  object ops extends ToMonadOps
 }

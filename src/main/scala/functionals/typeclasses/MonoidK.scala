@@ -16,7 +16,18 @@ object MonoidK {
 
   def apply[F[_]](implicit F: MonoidK[F]): MonoidK[F] = F
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) extends SemigroupK.ops.Syntax[F, A](fa)
+  trait Ops[F[_], A] extends SemigroupK.Ops[F, A] {
+    def typeClassInstance: MonoidK[F]
+    def self: F[A]
   }
+
+  trait ToMonoidKOps {
+    implicit def toMonoidKOps[F[_], A](target: F[A])(implicit tc: MonoidK[F]): Ops[F, A] =
+      new Ops[F, A] {
+        def typeClassInstance: MonoidK[F] = tc
+        def self: F[A]                    = target
+      }
+  }
+
+  object ops extends ToMonoidKOps
 }

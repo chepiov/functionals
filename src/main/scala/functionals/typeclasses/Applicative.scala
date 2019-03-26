@@ -47,10 +47,18 @@ object Applicative {
 
   def apply[F[_]](implicit F: Applicative[F]): Applicative[F] = F
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) extends Functor.ops.Syntax[F, A](fa) {
-      def ap[B](ff: F[A => B])(implicit A: Applicative[F]): F[B]  = A.ap(fa)(ff)
-      def <*>[B](ff: F[A => B])(implicit A: Applicative[F]): F[B] = ap(ff)
-    }
+  trait Ops[F[_], A] extends Apply.Ops[F, A] {
+    def typeClassInstance: Applicative[F]
+    def self: F[A]
   }
+
+  trait ToApplicativeOps {
+    implicit def toApplicativeOps[F[_], A](target: F[A])(implicit tc: Applicative[F]): Ops[F, A] =
+      new Ops[F, A] {
+        def typeClassInstance: Applicative[F] = tc
+        def self: F[A]                        = target
+      }
+  }
+
+  object ops extends ToApplicativeOps
 }

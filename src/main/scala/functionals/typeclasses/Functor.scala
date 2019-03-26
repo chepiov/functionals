@@ -36,11 +36,21 @@ object Functor {
       F.map(fa)(ga => G.map(ga)(f))
   }
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) {
-      def map[B](f: A => B)(implicit F: Functor[F]): F[B] = F.map(fa)(f)
-      def as[B](b: => B)(implicit F: Functor[F]): F[B]    = F.as(fa, b)
-      def void(implicit F: Functor[F]): F[Unit]           = F.void(fa)
+  trait Ops[F[_], A] {
+    def typeClassInstance: Functor[F]
+    def self: F[A]
+
+    def map[B](f: A => B): F[B] = typeClassInstance.map(self)(f)
+    def as[B](b: => B): F[B]    = typeClassInstance.as(self, b)
+    def void: F[Unit]           = typeClassInstance.void(self)
+  }
+
+  trait ToFunctorOps {
+    implicit def toFunctorOps[F[_], A](target: F[A])(implicit tc: Functor[F]): Ops[F, A] = new Ops[F, A] {
+      val self: F[A]                    = target
+      val typeClassInstance: Functor[F] = tc
     }
   }
+
+  object ops extends ToFunctorOps
 }

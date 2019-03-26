@@ -5,7 +5,7 @@ import scala.language.higherKinds
 package object functionals {
   type MyId[A] = A
 
-  implicit val idStdInstance: Traverse[MyId] with Monad[MyId] =
+  implicit val myIdStdInstance: Traverse[MyId] with Monad[MyId] =
     new Traverse[MyId] with Monad[MyId] {
       def traverse[G[_]: Applicative, A, B](fa: MyId[A])(f: A => G[B]): G[MyId[B]] = f(fa)
       def pure[A](a: A): MyId[A]                                                   = a

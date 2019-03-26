@@ -6,6 +6,9 @@ trait Equal[A] {
 }
 
 case object Equal {
+
+  def apply[A](implicit A: Equal[A]): Equal[A] = A
+
   def natural[A]: Equal[A] = new Equal[A] {
     def equal(x: A, y: A): Boolean = x == y
   }
@@ -14,12 +17,21 @@ case object Equal {
     def equal(x: A, y: A): Boolean = f(x, y)
   }
 
-  object ops {
-    implicit class Syntax[A](x: A) {
-      def ===(y: A)(implicit E: Equal[A]): Boolean = E.equal(x, y)
-      def =!=(y: A)(implicit E: Equal[A]): Boolean = E.notEqual(x, y)
-    }
+  trait Ops[A] {
+    def typeClassInstance: Equal[A]
+    def self: A
+
+    def ===(y: A): Boolean = typeClassInstance.equal(self, y)
+    def =!=(y: A): Boolean = typeClassInstance.notEqual(self, y)
   }
 
-  def apply[A](implicit A: Equal[A]): Equal[A] = A
+  trait ToEqualOps {
+    implicit def toEqualOps[A](target: A)(implicit tc: Equal[A]): Ops[A] =
+      new Ops[A] {
+        def typeClassInstance: Equal[A] = tc
+        def self: A                     = target
+      }
+  }
+
+  object ops extends ToEqualOps
 }

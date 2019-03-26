@@ -32,12 +32,32 @@ object Traverse {
       F.traverse(fa)(ga => G.traverse(ga)(f))
   }
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) extends Foldable.ops.Syntax(fa) {
-      def traverse[G[_]: Applicative, B](f: A => G[B])(implicit T: Traverse[F]): G[F[B]] = T.traverse(fa)(f)
-    }
-    implicit class SeqSyntax[F[_], G[_], A](fga: F[G[A]]) extends Foldable.ops.SeqSyntax(fga) {
-      def sequence(implicit A: Applicative[G], T: Traverse[F]): G[F[A]] = T.sequence(fga)
-    }
+  trait Ops[F[_], A] extends Foldable.Ops[F, A] with Functor.Ops[F, A] {
+    def typeClassInstance: Traverse[F]
+    def self: F[A]
+
+    def traverse[G[_]: Applicative, B](f: A => G[B]): G[F[B]] = typeClassInstance.traverse(self)(f)
   }
+
+  trait ComposedOps[F[_], G[_], A] {
+    def typeClassInstance: Traverse[F]
+    def composedSelf: F[G[A]]
+
+    def sequence(implicit A: Applicative[G]): G[F[A]] = typeClassInstance.sequence(composedSelf)
+  }
+
+  trait ToTraverseOps {
+    implicit def toTraverseOps[F[_], A](target: F[A])(implicit tc: Traverse[F]): Ops[F, A] =
+      new Ops[F, A] {
+        def typeClassInstance: Traverse[F] = tc
+        def self: F[A]                     = target
+      }
+    implicit def toTraverseOps[F[_], G[_], A](target: F[G[A]])(implicit tc: Traverse[F]): ComposedOps[F, G, A] =
+      new ComposedOps[F, G, A] {
+        def typeClassInstance: Traverse[F] = tc
+        def composedSelf: F[G[A]]          = target
+      }
+  }
+
+  object ops extends ToTraverseOps
 }

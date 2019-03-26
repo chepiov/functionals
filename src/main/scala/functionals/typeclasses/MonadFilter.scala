@@ -17,10 +17,21 @@ object MonadFilter {
 
   def apply[F[_]](implicit F: MonadFilter[F]): MonadFilter[F] = F
 
-  object ops {
-    implicit class Syntax[F[_], A](fa: F[A]) extends Monad.ops.Syntax[F, A](fa) {
-      def filter(f: A => Boolean)(implicit M: MonadFilter[F]): F[A]     = M.filter(fa)(f)
-      def filterM(f: A => F[Boolean])(implicit M: MonadFilter[F]): F[A] = M.filterM(fa)(f)
-    }
+  trait Ops[F[_], A] extends Monad.Ops[F, A] {
+    def typeClassInstance: MonadFilter[F]
+    def self: F[A]
+
+    def filter(f: A => Boolean): F[A]     = typeClassInstance.filter(self)(f)
+    def filterM(f: A => F[Boolean]): F[A] = typeClassInstance.filterM(self)(f)
   }
+
+  trait ToMonadFilterOps {
+    implicit def toMonadFilterOps[F[_], A](target: F[A])(implicit tc: MonadFilter[F]): Ops[F, A] =
+      new Ops[F, A] {
+        def typeClassInstance: MonadFilter[F] = tc
+        def self: F[A]                        = target
+      }
+  }
+
+  object ops extends ToMonadFilterOps
 }
