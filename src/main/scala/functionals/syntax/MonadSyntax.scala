@@ -19,7 +19,7 @@ trait MonadComposedOps[F[_], A] {
   def flatten: F[A] = typeClassInstance.flatten(composedSelf)
 }
 
-trait MonadSyntax extends ApplicativeSyntax {
+trait MonadSyntax {
   implicit def toMonadOps[F[_], A](target: F[A])(implicit tc: Monad[F]): MonadOps[F, A] =
     new MonadOps[F, A] {
       def typeClassInstance: Monad[F] = tc
@@ -31,3 +31,5 @@ trait MonadSyntax extends ApplicativeSyntax {
       def composedSelf: F[F[A]]       = target
     }
 }
+
+trait MonadAllSyntax extends MonadSyntax with ApplicativeAllSyntax

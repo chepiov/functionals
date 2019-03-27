@@ -17,3 +17,5 @@ trait EqualSyntax {
       def self: A                     = target
     }
 }
+
+trait EqualAllSyntax extends EqualSyntax

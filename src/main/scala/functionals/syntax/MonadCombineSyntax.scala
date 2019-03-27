@@ -28,3 +28,5 @@ trait MonadCombineSyntax {
       def composedSelf: F[G[A]]              = target
     }
 }
+
+trait MonadCombineAllSyntax extends MonadCombineSyntax with MonadFilterAllSyntax with MonoidKAllSyntax

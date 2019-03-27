@@ -6,7 +6,7 @@ import scala.language.higherKinds
 
 trait MonadFilterLaws[F[_]] extends MonadLaws[F] {
   import IsEqual.ops._
-  import functionals.syntax.all._
+  import functionals.syntax.withParent.monad._
   import typeClass.empty
 
   implicit val typeClass: MonadFilter[F]

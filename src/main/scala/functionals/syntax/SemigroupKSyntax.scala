@@ -16,3 +16,5 @@ trait SemigroupKSyntax {
       def self: F[A]                       = target
     }
 }
+
+trait SemigroupKAllSyntax extends SemigroupKSyntax

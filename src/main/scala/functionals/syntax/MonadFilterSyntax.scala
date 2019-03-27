@@ -17,3 +17,5 @@ trait MonadFilterSyntax {
       def self: F[A]                        = target
     }
 }
+
+trait MonadFilterAllSyntax extends MonadFilterSyntax with MonadAllSyntax

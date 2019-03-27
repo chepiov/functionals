@@ -17,3 +17,5 @@ trait FunctorSyntax {
     val typeClassInstance: Functor[F] = tc
   }
 }
+
+trait FunctorAllSyntax extends FunctorSyntax

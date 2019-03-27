@@ -5,7 +5,7 @@ import functionals.typeclasses.Functor
 import scala.language.higherKinds
 
 trait FunctorLaws[F[_]] {
-  import functionals.syntax.all._
+  import functionals.syntax.withParent.functor._
   import IsEqual.ops._
 
   implicit val typeClass: Functor[F]

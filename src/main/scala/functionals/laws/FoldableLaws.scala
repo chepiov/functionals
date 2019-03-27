@@ -5,7 +5,7 @@ import functionals.typeclasses.{Foldable, Monoid}
 import scala.language.higherKinds
 
 trait FoldableLaws[F[_]] {
-  import functionals.syntax.all._
+  import functionals.syntax.withParent.foldable._
   import IsEqual.ops._
 
   implicit val typeClass: Foldable[F]

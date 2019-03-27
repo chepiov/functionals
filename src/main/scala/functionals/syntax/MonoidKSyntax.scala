@@ -14,3 +14,5 @@ trait MonoidKSyntax {
       def self: F[A]                    = target
     }
 }
+
+trait MonoidKAllSyntax extends MonoidKSyntax with SemigroupKAllSyntax

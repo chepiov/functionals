@@ -6,7 +6,7 @@ import scala.language.higherKinds
 
 trait MonoidKLaws[F[_]] extends SemigroupKLaws[F] {
   import IsEqual.ops._
-  import functionals.syntax.all._
+  import functionals.syntax.withParent.monoidK._
 
   implicit override val typeClass: MonoidK[F]
 

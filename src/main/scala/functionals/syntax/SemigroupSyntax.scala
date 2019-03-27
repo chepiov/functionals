@@ -15,3 +15,5 @@ trait SemigroupSyntax {
     val typeClassInstance: Semigroup[A] = tc
   }
 }
+
+trait SemigroupAllSyntax extends SemigroupSyntax

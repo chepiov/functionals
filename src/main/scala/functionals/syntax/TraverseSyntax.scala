@@ -30,3 +30,5 @@ trait TraverseSyntax {
       def composedSelf: F[G[A]]          = target
     }
 }
+
+trait TraverseAllSyntax extends TraverseSyntax with FoldableAllSyntax with FunctorAllSyntax

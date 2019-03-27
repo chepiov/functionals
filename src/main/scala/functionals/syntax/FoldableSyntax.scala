@@ -37,3 +37,5 @@ trait FoldableSyntax {
       def composedSelf: F[G[A]]          = target
     }
 }
+
+trait FoldableAllSyntax extends FoldableSyntax

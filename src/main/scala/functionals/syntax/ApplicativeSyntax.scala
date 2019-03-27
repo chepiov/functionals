@@ -14,3 +14,5 @@ trait ApplicativeSyntax {
       def self: F[A]                        = target
     }
 }
+
+trait ApplicativeAllSyntax extends ApplicativeSyntax with ApplyAllSyntax

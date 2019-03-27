@@ -7,9 +7,11 @@ trait MonoidOps[A] {
   def self: A
 }
 
-trait MonoidSyntax extends SemigroupSyntax {
+trait MonoidSyntax {
   implicit def toMonoidOps[A](target: A)(implicit tc: Monoid[A]): MonoidOps[A] = new MonoidOps[A] {
     val self: A                      = target
     val typeClassInstance: Monoid[A] = tc
   }
 }
+
+trait MonoidAllSyntax extends MonoidSyntax with SemigroupAllSyntax

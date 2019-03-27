@@ -19,4 +19,18 @@ object all
     with MonadSyntax with FoldableSyntax with TraverseSyntax with SemigroupKSyntax with MonoidKSyntax
     with MonadFilterSyntax with MonadCombineSyntax with EqualSyntax
 
-object withParents {}
+object withParent {
+  object semigroup    extends SemigroupAllSyntax
+  object monoid       extends MonoidAllSyntax
+  object functor      extends FunctorAllSyntax
+  object apply        extends ApplyAllSyntax
+  object applicative  extends ApplicativeAllSyntax
+  object monad        extends MonadAllSyntax
+  object foldable     extends FoldableAllSyntax
+  object traverse     extends TraverseAllSyntax
+  object semigroupK   extends SemigroupKAllSyntax
+  object monoidK      extends MonoidKAllSyntax
+  object monadFilter  extends MonadFilterAllSyntax
+  object monadCombine extends MonadCombineAllSyntax
+  object equal        extends EqualAllSyntax
+}

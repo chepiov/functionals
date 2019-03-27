@@ -17,3 +17,5 @@ trait ApplySyntax {
       def self: F[A]                  = target
     }
 }
+
+trait ApplyAllSyntax extends ApplySyntax with FunctorAllSyntax
