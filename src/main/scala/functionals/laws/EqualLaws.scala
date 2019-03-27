@@ -3,7 +3,7 @@ package functionals.laws
 import functionals.typeclasses.Equal
 
 trait EqualLaws[A] {
-  import Equal.ops._
+  import functionals.syntax.all._
   import IsEqual.ops._
 
   implicit val typeClass: Equal[A]

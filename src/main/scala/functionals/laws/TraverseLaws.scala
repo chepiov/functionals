@@ -5,7 +5,7 @@ import functionals.typeclasses.Traverse
 
 trait TraverseLaws[F[_]] extends FunctorLaws[F] with FoldableLaws[F] {
   import IsEqual.ops._
-  import Traverse.ops._
+  import functionals.syntax.all._
 
   implicit override val typeClass: Traverse[F]
 

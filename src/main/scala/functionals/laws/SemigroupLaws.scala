@@ -4,7 +4,7 @@ import functionals.typeclasses.Semigroup
 
 trait SemigroupLaws[A] {
   import IsEqual.ops._
-  import Semigroup.ops._
+  import functionals.syntax.all._
 
   implicit val typeClass: Semigroup[A]
 

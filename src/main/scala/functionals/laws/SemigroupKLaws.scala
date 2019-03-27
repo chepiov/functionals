@@ -6,7 +6,7 @@ import scala.language.higherKinds
 
 trait SemigroupKLaws[F[_]] {
   import IsEqual.ops._
-  import SemigroupK.ops._
+  import functionals.syntax.all._
 
   implicit val typeClass: SemigroupK[F]
 

@@ -6,7 +6,7 @@ import scala.language.higherKinds
 
 trait MonadLaws[F[_]] extends ApplicativeLaws[F] {
   import IsEqual.ops._
-  import Monad.ops._
+  import functionals.syntax.all._
 
   implicit val typeClass: Monad[F]
 

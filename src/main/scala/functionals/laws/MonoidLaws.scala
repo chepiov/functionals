@@ -4,7 +4,7 @@ import functionals.typeclasses.Monoid
 
 trait MonoidLaws[A] extends SemigroupLaws[A] {
   import IsEqual.ops._
-  import Monoid.ops._
+  import functionals.syntax.all._
 
   implicit val typeClass: Monoid[A]
 

@@ -31,33 +31,4 @@ object Traverse {
     def traverse[H[_]: Applicative, A, B](fa: F[G[A]])(f: A => H[B]): H[F[G[B]]] =
       F.traverse(fa)(ga => G.traverse(ga)(f))
   }
-
-  trait Ops[F[_], A] extends Foldable.Ops[F, A] with Functor.Ops[F, A] {
-    def typeClassInstance: Traverse[F]
-    def self: F[A]
-
-    def traverse[G[_]: Applicative, B](f: A => G[B]): G[F[B]] = typeClassInstance.traverse(self)(f)
-  }
-
-  trait ComposedOps[F[_], G[_], A] {
-    def typeClassInstance: Traverse[F]
-    def composedSelf: F[G[A]]
-
-    def sequence(implicit A: Applicative[G]): G[F[A]] = typeClassInstance.sequence(composedSelf)
-  }
-
-  trait ToTraverseOps {
-    implicit def toTraverseOps[F[_], A](target: F[A])(implicit tc: Traverse[F]): Ops[F, A] =
-      new Ops[F, A] {
-        def typeClassInstance: Traverse[F] = tc
-        def self: F[A]                     = target
-      }
-    implicit def toTraverseOps[F[_], G[_], A](target: F[G[A]])(implicit tc: Traverse[F]): ComposedOps[F, G, A] =
-      new ComposedOps[F, G, A] {
-        def typeClassInstance: Traverse[F] = tc
-        def composedSelf: F[G[A]]          = target
-      }
-  }
-
-  object ops extends ToTraverseOps
 }

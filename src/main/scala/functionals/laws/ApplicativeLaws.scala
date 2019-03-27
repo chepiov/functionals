@@ -5,7 +5,7 @@ import functionals.typeclasses.Applicative
 import scala.language.higherKinds
 
 trait ApplicativeLaws[F[_]] extends FunctorLaws[F] {
-  import Applicative.ops._
+  import functionals.syntax.all._
   import IsEqual.ops._
 
   implicit val typeClass: Applicative[F]

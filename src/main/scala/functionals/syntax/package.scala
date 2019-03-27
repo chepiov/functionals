@@ -1,23 +1,22 @@
 package functionals.syntax
 
-import functionals.typeclasses._
-
-object semigroup    extends Semigroup.ToSemigroupOps
-object monoid       extends Monoid.ToMonoidOps
-object functor      extends Functor.ToFunctorOps
-object apply        extends Apply.ToApplyOps
-object applicative  extends Applicative.ToApplicativeOps
-object monad        extends Monad.ToMonadOps
-object foldable     extends Foldable.ToFoldableOps
-object traverse     extends Traverse.ToTraverseOps
-object semigroupK   extends SemigroupK.ToSemigroupKOps
-object monoidK      extends MonoidK.ToMonoidKOps
-object monadFilter  extends MonadFilter.ToMonadFilterOps
-object monadCombine extends MonadCombine.ToMonadCombineOps
-object equal        extends Equal.ToEqualOps
+object semigroup    extends SemigroupSyntax
+object monoid       extends MonoidSyntax
+object functor      extends FunctorSyntax
+object apply        extends ApplySyntax
+object applicative  extends ApplicativeSyntax
+object monad        extends MonadSyntax
+object foldable     extends FoldableSyntax
+object traverse     extends TraverseSyntax
+object semigroupK   extends SemigroupKSyntax
+object monoidK      extends MonoidKSyntax
+object monadFilter  extends MonadFilterSyntax
+object monadCombine extends MonadCombineSyntax
+object equal        extends EqualSyntax
 
 object all
-    extends Semigroup.ToSemigroupOps with Monoid.ToMonoidOps with Functor.ToFunctorOps with Apply.ToApplyOps
-    with Applicative.ToApplicativeOps with Monad.ToMonadOps with Foldable.ToFoldableOps with Traverse.ToTraverseOps
-    with SemigroupK.ToSemigroupKOps with MonoidK.ToMonoidKOps with MonadFilter.ToMonadFilterOps
-    with MonadCombine.ToMonadCombineOps with Equal.ToEqualOps
+    extends SemigroupSyntax with MonoidSyntax with FunctorSyntax with ApplySyntax with ApplicativeSyntax
+    with MonadSyntax with FoldableSyntax with TraverseSyntax with SemigroupKSyntax with MonoidKSyntax
+    with MonadFilterSyntax with MonadCombineSyntax with EqualSyntax
+
+object withParents {}

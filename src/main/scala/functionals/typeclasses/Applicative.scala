@@ -44,21 +44,5 @@ trait Applicative[F[_]] extends Any with Apply[F] { self =>
 }
 
 object Applicative {
-
   def apply[F[_]](implicit F: Applicative[F]): Applicative[F] = F
-
-  trait Ops[F[_], A] extends Apply.Ops[F, A] {
-    def typeClassInstance: Applicative[F]
-    def self: F[A]
-  }
-
-  trait ToApplicativeOps {
-    implicit def toApplicativeOps[F[_], A](target: F[A])(implicit tc: Applicative[F]): Ops[F, A] =
-      new Ops[F, A] {
-        def typeClassInstance: Applicative[F] = tc
-        def self: F[A]                        = target
-      }
-  }
-
-  object ops extends ToApplicativeOps
 }
