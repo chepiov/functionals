@@ -2,7 +2,7 @@ package functionals.structures
 
 sealed trait MyEval[+A] extends Serializable {
   def value: A
-  def map[B](f: A => B): MyEval[B]             = ???
+  def map[B](f: A => B): MyEval[B]             = flatMap(a => Now(f(a)))
   def flatMap[B](f: A => MyEval[B]): MyEval[B] = ???
   def memoize: MyEval[A]
 }
