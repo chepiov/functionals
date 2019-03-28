@@ -1,4 +1,5 @@
 package functionals.transformers
+
 import functionals.typeclasses.{Applicative, Equal, Functor, Monad}
 
 final case class MyReaderT[F[_], A, B](run: A => F[B]) {

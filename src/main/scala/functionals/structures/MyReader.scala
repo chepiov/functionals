@@ -19,7 +19,7 @@ case class MyReader[A, B](run: A => B) {
     MyReader(that.run andThen run)
 }
 
-object MyReader {
+case object MyReader {
 
   def ask[A]: MyReader[A, A] = MyReader(identity)
 

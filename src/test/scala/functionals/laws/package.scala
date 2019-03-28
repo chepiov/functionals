@@ -77,10 +77,17 @@ package object laws {
       } yield MyReader(f)
     }
 
-  implicit def arbMyReaderT[A, B](implicit arb: Arbitrary[A => MyList[B]]): Arbitrary[MyReaderT[MyList, A, B]] =
+  implicit def arbMyReaderT[A, B, F[_]](implicit arb: Arbitrary[A => F[B]]): Arbitrary[MyReaderT[F, A, B]] =
     Arbitrary {
       for {
         f <- arb.arbitrary
       } yield MyReaderT(f)
+    }
+
+  implicit def arbMyState[S, A](implicit arb: Arbitrary[S => (A, S)]): Arbitrary[MyState[S, A]] =
+    Arbitrary {
+      for {
+        f <- arb.arbitrary
+      } yield MyState(f)
     }
 }
