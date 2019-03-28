@@ -12,3 +12,4 @@ Links:
 * [Cats library](https://typelevel.org/cats/)
 * [Scala with Cats @ underscore](https://underscore.io/books/scala-with-cats/)
 * [Herding cats @ Eugene Yokota](http://eed3si9n.com/herding-cats/)
+* [Stackless Scala With Free Monads @ Runar Bjarnason](http://blog.higher-order.com/assets/trampolines.pdf)
